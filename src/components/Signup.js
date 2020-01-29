@@ -1,0 +1,54 @@
+import React, { useState } from "react";
+import API from "../adapters/API";
+import { Redirect } from "react-router-dom";
+
+const Signup = ({ onSuccess, user }) => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    API.signup({ username, email, password }).then(user => onSuccess(user));
+  };
+
+  return (
+    <div>
+      {/* <h2>
+        Welcome to Overwatcher! Please sign up below to begin taking your game
+        to the next level.
+      </h2> */}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username..."
+            value={username}
+            onChange={event => setUsername(event.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email..."
+            value={email}
+            onChange={event => setEmail(event.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password..."
+            value={password}
+            onChange={event => setPassword(event.target.value)}
+          />
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default Signup;
