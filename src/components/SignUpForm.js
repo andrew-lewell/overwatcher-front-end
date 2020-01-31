@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import API from "../adapters/API";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
-const Signup = ({ onSuccess, user }) => {
+const SignUpForm = ({ onSuccess, user }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,12 +14,9 @@ const Signup = ({ onSuccess, user }) => {
 
   return (
     <div>
-      {/* <h2>
-        Welcome to Overwatcher! Please sign up below to begin taking your game
-        to the next level.
-      </h2> */}
       <form onSubmit={handleSubmit}>
         <div>
+          <h2>Create an account</h2>
           <input
             type="text"
             name="username"
@@ -46,9 +43,11 @@ const Signup = ({ onSuccess, user }) => {
             onChange={event => setPassword(event.target.value)}
           />
         </div>
+        <input type="submit" value="Submit" />
       </form>
+      Already have an account? Please <Link to="/signin">sign in</Link> instead.
     </div>
   );
 };
 
-export default Signup;
+export default SignUpForm;

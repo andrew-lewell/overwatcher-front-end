@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./css/App.css";
-import Header from "./components/Header.js";
 import {
   BrowserRouter as Router,
   Route,
@@ -9,16 +7,30 @@ import {
   Redirect,
   Link
 } from "react-router-dom";
+
+import "./css/App.css";
 import API from "./adapters/API";
 import logo from "./images/overwatcher_logo.png";
-import Signup from "./components/Signup";
-import Signin from "./components/Signin";
+import SignUpContainer from "./components/SignUpForm";
+import SignInContainer from "./components/SignInForm";
 
-function App() {
+const App = () => {
   const [user, setUser] = useState(null);
+  const [validatedUser, setValidatedUser] = useState(false);
+
+  useEffect(() => {
+    if (API.hasToken()) {
+      API.validate()
+        .then(handleUser)
+        .then(() => setValidatedUser(true));
+    } else {
+      setValidatedUser(false);
+    }
+  }, []);
 
   const logout = () => {
     setUser(null);
+    setValidatedUser(false);
     API.clearToken();
   };
 
@@ -37,11 +49,7 @@ function App() {
           <Route exact path="/signup">
             {!user ? (
               <div>
-                <Signup onSuccess={handleUser} user={user} />
-                Already have an account? Please <Link to="/signin">
-                  log in
-                </Link>{" "}
-                instead.
+                <SignUpContainer onSuccess={handleUser} user={user} />
               </div>
             ) : (
               <Redirect to="/" />
@@ -50,11 +58,7 @@ function App() {
           <Route exact path="/signin">
             {!user ? (
               <div>
-                <Signin onSuccess={handleUser} user={user} />
-                Don't have an account? Please <Link to="/signup">
-                  sign up
-                </Link>{" "}
-                instead.
+                <SignInContainer onSuccess={handleUser} user={user} />
               </div>
             ) : (
               <Redirect to="/" />
@@ -65,6 +69,7 @@ function App() {
               <div>
                 Logged in as {user.username}
                 <Link to="" onClick={() => logout()}>
+                  {" "}
                   log out
                 </Link>
               </div>
@@ -76,6 +81,6 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
 export default App;
