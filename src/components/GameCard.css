@@ -1,0 +1,46 @@
+.lossCard {
+  padding: 5px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(226, 12, 12, 0.7);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 4px;
+  border-radius: 5px;
+  max-width: 700px;
+}
+
+.winCard {
+  padding: 5px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(12, 184, 12, 0.7);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 4px;
+  border-radius: 5px;
+  max-width: 700px;
+}
+
+.drawCard {
+  padding: 5px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #ada8a8;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 4px;
+  border-radius: 5px;
+  max-width: 700px;
+}
+
+.mapImg {
+  max-height: 200px;
+}
+
+.heroImg {
+  max-height: 250px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.cardStats {
+  display: inline;
+}
