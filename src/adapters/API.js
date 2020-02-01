@@ -84,15 +84,15 @@ const postGame = (seasonId, mapId, heroId, result, sr) =>
     })
   }).then(jsonify);
 
-const fetchSeasons = () =>
-  fetch(SEASONS_URL, {
+const fetchSeason = seasonId =>
+  fetch(SEASONS_URL + seasonId, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorisation: localStorage.token
     }
-  });
+  }).then(jsonify);
 
 const fetchGames = () =>
   fetch(GAMES_URL, {
@@ -102,7 +102,7 @@ const fetchGames = () =>
       Accept: "application/json",
       Authorisation: localStorage.token
     }
-  });
+  }).then(jsonify);
 
 const deleteGame = gameId =>
   fetch(GAMES_URL + gameId, {
@@ -119,7 +119,7 @@ export default {
   validate,
   postSeason,
   postGame,
-  fetchSeasons,
+  fetchSeason,
   fetchGames,
   deleteGame,
 

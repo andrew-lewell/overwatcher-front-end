@@ -1,0 +1,10 @@
+a {
+  color: black;
+  transition: 500ms;
+  padding: 2px;
+}
+
+a.active {
+  color: orange;
+  border-bottom: solid 1px orange;
+}
