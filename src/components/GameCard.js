@@ -52,22 +52,28 @@ const GameCard = ({ gameData }) => {
 
   return (
     <div className={styleByResult(gameData.result)}>
-      <h3>
-        {" "}
-        {gameData.map.map}
-        {" - "}
-        {gameData.result.toUpperCase()}
-        {" - "}
-        {gameData.sr} SR
-      </h3>
-      <img
-        src={map_images[mapNameForImg(gameData.map.map)]}
-        className='mapImg'
-      />
-      <img
-        src={hero_images[heroNameForImg(gameData.hero.name)]}
-        className='heroImg'
-      />
+      <div>
+        <h3>
+          {" "}
+          {gameData.map.map}
+          {" - "}
+          {gameData.result.toUpperCase()}
+          {" - "}
+          {gameData.sr} SR
+        </h3>
+        <img
+          src={map_images[mapNameForImg(gameData.map.map)]}
+          className='mapImg'
+        />
+        <img
+          src={hero_images[heroNameForImg(gameData.hero.name)]}
+          className='heroImg'
+        />
+      </div>
+      <div>
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
     </div>
   );
 };

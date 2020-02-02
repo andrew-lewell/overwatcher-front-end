@@ -23,7 +23,7 @@ const App = () => {
     } else {
       setValidatedUser(false);
     }
-  }, []);
+  }, [validatedUser]);
 
   useEffect(() => {
     handleSeasonFetch(activeSeason);
@@ -49,7 +49,7 @@ const App = () => {
         {/* <Header /> */}
         <img src={logo} alt='Overwatcher logo' />
       </header>
-      {user ? <NavBar /> : null}
+      {user ? <NavBar /> : null} <br />
       <Switch>
         <Route exact path='/signin'>
           {!user ? (
@@ -77,6 +77,8 @@ const App = () => {
                 {" "}
                 log out
               </Link>
+              <br />
+              <br />
               <GamesContainer gamesData={seasonData.games} />
             </div>
           ) : (

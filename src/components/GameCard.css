@@ -1,34 +1,37 @@
 .lossCard {
-  padding: 5px;
-  border-width: 6px;
+  padding: 10px;
+  border-width: 4px 6px 4px 6px;
   border-style: solid;
   border-color: rgba(226, 12, 12, 0.7);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 4px;
-  border-radius: 5px;
-  max-width: 700px;
+  border-radius: 2px;
+  max-width: 500px;
+  margin: auto;
 }
 
 .winCard {
-  padding: 5px;
-  border-width: 6px;
+  padding: 10px;
+  border-width: 4px 6px 4px 6px;
   border-style: solid;
   border-color: rgba(12, 184, 12, 0.7);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 4px;
-  border-radius: 5px;
-  max-width: 700px;
+  border-radius: 2px;
+  max-width: 500px;
+  margin: auto;
 }
 
 .drawCard {
-  padding: 5px;
-  border-width: 6px;
+  padding: 10px;
+  border-width: 4px 6px 4px 6px;
   border-style: solid;
   border-color: #ada8a8;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 4px;
-  border-radius: 5px;
-  max-width: 700px;
+  border-radius: 2px;
+  max-width: 500px;
+  margin: auto;
 }
 
 .mapImg {
