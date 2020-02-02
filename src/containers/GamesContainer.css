@@ -1,0 +1,18 @@
+.gamesContainer {
+  text-align: center;
+  margin-left: 0px;
+}
+
+.pagination {
+  list-style: none;
+  display: inline-block;
+  margin-left: 0px;
+}
+
+.pagination > li {
+  margin-right: 0.5em;
+  color: blue;
+  user-select: none;
+  cursor: pointer;
+  display: inline-block;
+}
