@@ -44,7 +44,25 @@ const App = () => {
     API.fetchSeason(seasonId).then(seasonData => setSeasonData(seasonData));
   };
 
-  const handleNewGamePost = game => {};
+  const handleNewGamePost = newGame => {
+    const updatedGamesList = [...seasonData.games, newGame];
+
+    setSeasonData(prevSeasonData => ({
+      ...prevSeasonData,
+      games: updatedGamesList
+    }));
+  };
+
+  const handleUpdateGamePost = updatedGame => {
+    const updatedGamesList = seasonData.games.filter(
+      game => game.id != updatedGame.id
+    );
+
+    setSeasonData(prevSeasonData => ({
+      ...prevSeasonData,
+      games: [...updatedGamesList, updatedGame]
+    }));
+  };
 
   const handleGameDelete = gameId => {
     const updatedGamesList = seasonData.games.filter(game => game.id != gameId);
@@ -96,6 +114,9 @@ const App = () => {
               <GamesContainer
                 gamesData={seasonData.games}
                 handleDelete={handleGameDelete}
+                activeSeason={activeSeason}
+                handleNewGamePost={handleNewGamePost}
+                handleUpdate={handleUpdateGamePost}
               />
             </div>
           ) : (

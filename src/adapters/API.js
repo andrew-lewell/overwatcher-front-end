@@ -84,6 +84,23 @@ const postGame = (seasonId, mapId, heroId, result, sr) =>
     })
   }).then(jsonify);
 
+const patchGame = (gameId, seasonId, mapId, heroId, result, sr) =>
+  fetch(GAMES_URL + gameId, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorisation: localStorage.token
+    },
+    body: JSON.stringify({
+      season_id: seasonId,
+      map_id: mapId,
+      hero_id: heroId,
+      result: result,
+      sr: sr
+    })
+  }).then(jsonify);
+
 const fetchSeason = seasonId =>
   fetch(SEASONS_URL + seasonId, {
     method: "GET",
@@ -119,6 +136,7 @@ export default {
   validate,
   postSeason,
   postGame,
+  patchGame,
   fetchSeason,
   fetchGames,
   deleteGame,
