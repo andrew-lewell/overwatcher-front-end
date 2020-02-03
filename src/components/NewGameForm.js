@@ -1,7 +1,14 @@
 import React, { useState } from "react";
+import API from "../adapters/API";
 
-const NewGameForm = () => {
-  const [formData, setFormData] = useState("");
+const NewGameForm = ({ activeSeason, handleNewGamePost }) => {
+  const [formData, setFormData] = useState({
+    season: activeSeason,
+    map: 2,
+    hero: 1,
+    result: "Win",
+    sr: null
+  });
 
   const handleFormChange = event => {
     setFormData({
@@ -12,13 +19,20 @@ const NewGameForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+    API.postGame(
+      formData.season,
+      formData.map,
+      formData.hero,
+      formData.result,
+      formData.sr
+    ).then(gameResp => handleNewGamePost(gameResp));
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onChange={handleFormChange} onSubmit={handleSubmit}>
         <label>Map: </label>
-        <select name='Map'>
+        <select name='map'>
           <option value='2'>Busan</option>
           <option value='3'>Dorado</option>
           <option value='4'>Eichenwalde</option>
@@ -33,7 +47,7 @@ const NewGameForm = () => {
         </select>
         <br />
         <label>Hero: </label>
-        <select name='Hero'>
+        <select name='hero'>
           <option value='1'>Ana</option>
           <option value='2'>Ashe</option>
           <option value='3'>Baptiste</option>
@@ -68,7 +82,7 @@ const NewGameForm = () => {
         </select>
         <br />
         <label>Result: </label>
-        <select name='Result'>
+        <select name='result'>
           <option value='win'>Win</option>
           <option value='loss'>Loss</option>
           <option value='draw'>Draw</option>

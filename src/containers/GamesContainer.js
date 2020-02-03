@@ -3,17 +3,22 @@ import GameCard from "../components/GameCard";
 import NewGameForm from "../components/NewGameForm";
 import "./GamesContainer.css";
 
-const GamesContainer = ({ gamesData, handleDelete }) => {
+const GamesContainer = ({
+  gamesData,
+  handleDelete,
+  activeSeason,
+  handleNewGamePost,
+  handleUpdate
+}) => {
   const [displayNewGameForm, setDisplayNewGameForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage, setGamesPerPage] = useState(10);
 
   const indexOfLastGameCard = currentPage * gamesPerPage;
   const indexOfFirstGameCard = indexOfLastGameCard - gamesPerPage;
-  const currentPageGames = gamesData.slice(
-    indexOfFirstGameCard,
-    indexOfLastGameCard
-  );
+  const currentPageGames = gamesData
+    ? gamesData.slice(indexOfFirstGameCard, indexOfLastGameCard)
+    : [];
 
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(gamesData.length / gamesPerPage); i++) {
@@ -42,13 +47,23 @@ const GamesContainer = ({ gamesData, handleDelete }) => {
   return (
     <div className='gamesContainer'>
       <div>
-        {displayNewGameForm ? <NewGameForm /> : null}
+        {displayNewGameForm ? (
+          <NewGameForm
+            activeSeason={activeSeason}
+            handleNewGamePost={handleNewGamePost}
+          />
+        ) : null}
         <button onClick={() => setDisplayNewGameForm(!displayNewGameForm)}>
           {displayNewGameForm ? "Hide Form" : "Add New Record"}
         </button>
       </div>
       {currentPageGames.map((game, index) => (
-        <GameCard gameData={game} key={index} handleDelete={handleDelete} />
+        <GameCard
+          gameData={game}
+          key={index}
+          handleDelete={handleDelete}
+          handleUpdate={handleUpdate}
+        />
       ))}
       <ul className='pagination'>{renderPageNumbers}</ul>
     </div>

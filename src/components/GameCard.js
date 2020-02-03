@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./GameCard.css";
+import UpdateGameForm from "./UpdateGameForm";
 
 function importAll(r) {
   let images = {};
@@ -18,7 +19,9 @@ const map_images = importAll(
   require.context("../images/maps", false, /\.(png|jpe?g|svg)$/)
 );
 
-const GameCard = ({ gameData, handleDelete }) => {
+const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
+  const [displayEditGameForm, setDisplayEditGameForm] = useState(false);
+
   const heroNameForImg = name => {
     return (
       name
@@ -71,8 +74,19 @@ const GameCard = ({ gameData, handleDelete }) => {
         />
       </div>
       <div>
-        <button>Edit</button>
+        <button onClick={() => setDisplayEditGameForm(!displayEditGameForm)}>
+          Edit
+        </button>
         <button onClick={() => handleDelete(gameData.id)}>Delete</button>
+      </div>
+      <div>
+        {displayEditGameForm ? (
+          <UpdateGameForm
+            gameData={gameData}
+            handleUpdate={handleUpdate}
+            setDisplayEditGameForm={setDisplayEditGameForm}
+          />
+        ) : null}
       </div>
     </div>
   );
