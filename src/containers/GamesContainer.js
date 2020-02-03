@@ -3,7 +3,7 @@ import GameCard from "../components/GameCard";
 import NewGameForm from "../components/NewGameForm";
 import "./GamesContainer.css";
 
-const GamesContainer = ({ gamesData }) => {
+const GamesContainer = ({ gamesData, handleDelete }) => {
   const [displayNewGameForm, setDisplayNewGameForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage, setGamesPerPage] = useState(10);
@@ -48,7 +48,7 @@ const GamesContainer = ({ gamesData }) => {
         </button>
       </div>
       {currentPageGames.map((game, index) => (
-        <GameCard gameData={game} key={index} />
+        <GameCard gameData={game} key={index} handleDelete={handleDelete} />
       ))}
       <ul className='pagination'>{renderPageNumbers}</ul>
     </div>

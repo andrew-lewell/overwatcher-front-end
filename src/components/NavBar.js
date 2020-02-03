@@ -9,7 +9,7 @@ const NavBar = () => {
       <NavLink exact to='/'>
         Home
       </NavLink>
-      {"  -  "}
+      {"  |  "}
       <NavLink exact to='/stats'>
         Stats
       </NavLink>
