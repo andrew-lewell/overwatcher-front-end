@@ -8,6 +8,7 @@ import SignUpContainer from "./components/SignUpForm";
 import SignInContainer from "./components/SignInForm";
 import GamesContainer from "./containers/GamesContainer";
 import NavBar from "./components/NavBar";
+import StatsContainer from "./containers/StatsContainer";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -41,6 +42,19 @@ const App = () => {
 
   const handleSeasonFetch = seasonId => {
     API.fetchSeason(seasonId).then(seasonData => setSeasonData(seasonData));
+  };
+
+  const handleNewGamePost = game => {};
+
+  const handleGameDelete = gameId => {
+    const updatedGamesList = seasonData.games.filter(game => game.id != gameId);
+
+    API.deleteGame(gameId).then(
+      setSeasonData(prevSeasonData => ({
+        ...prevSeasonData,
+        games: updatedGamesList
+      }))
+    );
   };
 
   return (
@@ -79,13 +93,18 @@ const App = () => {
               </Link>
               <br />
               <br />
-              <GamesContainer gamesData={seasonData.games} />
+              <GamesContainer
+                gamesData={seasonData.games}
+                handleDelete={handleGameDelete}
+              />
             </div>
           ) : (
             <Redirect to='/signup' />
           )}
         </Route>
-        <Route exact path='/stats'></Route>
+        <Route exact path='/stats'>
+          <StatsContainer />
+        </Route>
       </Switch>
     </div>
   );

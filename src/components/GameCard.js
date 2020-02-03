@@ -18,7 +18,7 @@ const map_images = importAll(
   require.context("../images/maps", false, /\.(png|jpe?g|svg)$/)
 );
 
-const GameCard = ({ gameData }) => {
+const GameCard = ({ gameData, handleDelete }) => {
   const heroNameForImg = name => {
     return (
       name
@@ -72,7 +72,7 @@ const GameCard = ({ gameData }) => {
       </div>
       <div>
         <button>Edit</button>
-        <button>Delete</button>
+        <button onClick={() => handleDelete(gameData.id)}>Delete</button>
       </div>
     </div>
   );
