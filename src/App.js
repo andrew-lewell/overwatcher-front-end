@@ -55,7 +55,7 @@ const App = () => {
 
   const handleUpdateGamePost = updatedGame => {
     const updatedGamesList = seasonData.games.filter(
-      game => game.id != updatedGame.id
+      game => game.id !== updatedGame.id
     );
 
     setSeasonData(prevSeasonData => ({
@@ -65,7 +65,9 @@ const App = () => {
   };
 
   const handleGameDelete = gameId => {
-    const updatedGamesList = seasonData.games.filter(game => game.id != gameId);
+    const updatedGamesList = seasonData.games.filter(
+      game => game.id !== gameId
+    );
 
     API.deleteGame(gameId).then(
       setSeasonData(prevSeasonData => ({

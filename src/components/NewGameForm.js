@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import API from "../adapters/API";
 
-const NewGameForm = ({ activeSeason, handleNewGamePost }) => {
+const NewGameForm = ({
+  activeSeason,
+  handleNewGamePost,
+  setDisplayNewGameForm
+}) => {
   const [formData, setFormData] = useState({
     season: activeSeason,
     map: 2,
     hero: 1,
-    result: "Win",
+    result: "win",
     sr: null
   });
 
@@ -26,6 +30,8 @@ const NewGameForm = ({ activeSeason, handleNewGamePost }) => {
       formData.result,
       formData.sr
     ).then(gameResp => handleNewGamePost(gameResp));
+
+    setDisplayNewGameForm(false);
   };
 
   return (

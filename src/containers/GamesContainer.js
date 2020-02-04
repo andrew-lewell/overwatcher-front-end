@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import GameCard from "../components/GameCard";
 import NewGameForm from "../components/NewGameForm";
 import "./GamesContainer.css";
@@ -51,6 +51,7 @@ const GamesContainer = ({
           <NewGameForm
             activeSeason={activeSeason}
             handleNewGamePost={handleNewGamePost}
+            setDisplayNewGameForm={setDisplayNewGameForm}
           />
         ) : null}
         <button onClick={() => setDisplayNewGameForm(!displayNewGameForm)}>
