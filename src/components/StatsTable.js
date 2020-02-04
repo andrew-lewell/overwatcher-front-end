@@ -6,8 +6,8 @@ import API from "../adapters/API";
 
 const StatsTable = () => {
   const [heroStats, setHeroStats] = useState([]);
-  const [column, setColumn] = useState(null);
-  const [direction, setDirection] = useState(null);
+  const [column, setColumn] = useState("name");
+  const [direction, setDirection] = useState("ascending");
 
   const fetchStats = () => {
     API.fetchHeroStats().then(stats => setHeroStats(stats));
@@ -19,7 +19,6 @@ const StatsTable = () => {
 
   const handleSort = clickedColumn => {
     if (column !== clickedColumn) {
-      console.log("I'm handling sort");
       setColumn(clickedColumn);
       setHeroStats(_.sortBy(heroStats, [clickedColumn]));
       setDirection("ascending");
@@ -59,6 +58,7 @@ const StatsTable = () => {
         {tableHeaders.map((col, index) => {
           return (
             <Table.HeaderCell
+              key={index}
               sorted={column === col ? direction : null}
               onClick={() => handleSort(rawTableHeaders[index])}
             >
@@ -70,29 +70,26 @@ const StatsTable = () => {
     </Table.Header>
   );
 
-  const renderTableRows = heroStats.map(obj => {
+  const renderTableRows = heroStats.map((obj, index) => {
     return (
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>{obj.name}</Table.Cell>
-          <Table.Cell>{obj.role}</Table.Cell>
-          <Table.Cell>{obj.total_wins}</Table.Cell>
-          <Table.Cell>{obj.total_losses}</Table.Cell>
-          <Table.Cell>{obj.total_draws}</Table.Cell>
-          <Table.Cell>{obj.total_games}</Table.Cell>
-          <Table.Cell>{obj.win_perc}</Table.Cell>
-          <Table.Cell>{obj.loss_perc}</Table.Cell>
-          <Table.Cell>{obj.draw_perc}</Table.Cell>
-        </Table.Row>
-      </Table.Body>
+      <Table.Row key={index}>
+        <Table.Cell>{obj.name}</Table.Cell>
+        <Table.Cell>{obj.role}</Table.Cell>
+        <Table.Cell>{obj.total_wins}</Table.Cell>
+        <Table.Cell>{obj.total_losses}</Table.Cell>
+        <Table.Cell>{obj.total_draws}</Table.Cell>
+        <Table.Cell>{obj.total_games}</Table.Cell>
+        <Table.Cell>{obj.win_perc}</Table.Cell>
+        <Table.Cell>{obj.loss_perc}</Table.Cell>
+        <Table.Cell>{obj.draw_perc}</Table.Cell>
+      </Table.Row>
     );
   });
 
   return (
     <Table celled sortable fixed>
       {renderTableHeaders}
-      {renderTableRows}
-      {/* <Stats /> */}
+      <Table.Body>{renderTableRows}</Table.Body>
     </Table>
   );
 };

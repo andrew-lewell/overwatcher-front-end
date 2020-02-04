@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, NavLink, Switch, Redirect, Link } from "react-router-dom";
+import { Route, Switch, Redirect, Link } from "react-router-dom";
 
 import "./css/App.css";
 import API from "./adapters/API";
@@ -9,11 +9,12 @@ import SignInContainer from "./components/SignInForm";
 import GamesContainer from "./containers/GamesContainer";
 import NavBar from "./components/NavBar";
 import StatsContainer from "./containers/StatsContainer";
+import GraphsContainer from "./containers/GraphsContainer";
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [validatedUser, setValidatedUser] = useState(false);
-  const [activeSeason, setActiveSeason] = useState(1);
+  const [activeSeason] = useState(1);
   const [seasonData, setSeasonData] = useState({});
 
   useEffect(() => {
@@ -127,6 +128,9 @@ const App = () => {
         </Route>
         <Route exact path='/stats'>
           <StatsContainer />
+        </Route>
+        <Route exact path='/graphs'>
+          <GraphsContainer />
         </Route>
       </Switch>
     </div>
