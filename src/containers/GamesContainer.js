@@ -12,7 +12,7 @@ const GamesContainer = ({
 }) => {
   const [displayNewGameForm, setDisplayNewGameForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage, setGamesPerPage] = useState(10);
+  const [gamesPerPage] = useState(10);
 
   const indexOfLastGameCard = currentPage * gamesPerPage;
   const indexOfFirstGameCard = indexOfLastGameCard - gamesPerPage;
@@ -36,7 +36,7 @@ const GamesContainer = ({
         id={num}
         onClick={handlePageClick}
         style={{
-          color: num == currentPage ? "orange" : "black"
+          color: num === currentPage ? "orange" : "black"
         }}
       >
         {num}

@@ -44,9 +44,9 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
   };
 
   const styleByResult = result => {
-    if (result == "win") {
+    if (result === "win") {
       return "winCard";
-    } else if (result == "loss") {
+    } else if (result === "loss") {
       return "lossCard";
     } else {
       return "drawCard";
@@ -67,10 +67,12 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
         <img
           src={map_images[mapNameForImg(gameData.map.map)]}
           className='mapImg'
+          alt='map'
         />
         <img
           src={hero_images[heroNameForImg(gameData.hero.name)]}
           className='heroImg'
+          alt='hero'
         />
       </div>
       <div>

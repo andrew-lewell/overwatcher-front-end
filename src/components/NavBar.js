@@ -13,6 +13,10 @@ const NavBar = () => {
       <NavLink exact to='/stats'>
         Stats
       </NavLink>
+      {"  |  "}
+      <NavLink exact to='/graphs'>
+        Graphs
+      </NavLink>
     </nav>
   );
 };
