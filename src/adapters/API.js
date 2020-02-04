@@ -6,6 +6,7 @@ const SIGNUP_URL = `${API_ENDPOINT}/signup/`;
 const VALIDATE_URL = `${API_ENDPOINT}/validate/`;
 const SEASONS_URL = `${API_ENDPOINT}/seasons/`;
 const GAMES_URL = `${API_ENDPOINT}/games/`;
+const HEROSTATS_URL = `${API_ENDPOINT}/herostats/`;
 
 const jsonify = resp => {
   if (resp.ok) {
@@ -56,16 +57,16 @@ const validate = () =>
     .then(jsonify)
     .then(handleUserResponse);
 
-const postSeason = season =>
-  fetch(SEASONS_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorisation: localStorage.token
-    },
-    body: JSON.stringify({ season })
-  }).then(jsonify);
+// const postSeason = season =>
+//   fetch(SEASONS_URL, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Accept: "application/json",
+//       Authorisation: localStorage.token
+//     },
+//     body: JSON.stringify({ season })
+//   }).then(jsonify);
 
 const postGame = (seasonId, mapId, heroId, result, sr) =>
   fetch(GAMES_URL, {
@@ -130,16 +131,27 @@ const deleteGame = gameId =>
     }
   });
 
+// fetch aggregated hero stats
+const fetchHeroStats = () =>
+  fetch(HEROSTATS_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
+    }
+  }).then(jsonify);
+
 export default {
   signin,
   signup,
   validate,
-  postSeason,
+  // postSeason,
   postGame,
   patchGame,
   fetchSeason,
   fetchGames,
   deleteGame,
+  fetchHeroStats,
 
   hasToken: () => !!localStorage.token,
   clearToken: () => localStorage.removeItem("token")
