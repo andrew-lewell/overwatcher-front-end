@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import API from "../adapters/API";
+import { Button, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+
+import API from "../adapters/API";
 
 const SignUpForm = ({ onSuccess, user }) => {
   const [username, setUsername] = useState("");
@@ -12,9 +14,14 @@ const SignUpForm = ({ onSuccess, user }) => {
     API.signup({ username, email, password }).then(user => onSuccess(user));
   };
 
+  const formStyle = {
+    margin: "0 auto",
+    width: "200px"
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <Form style={formStyle} onSubmit={handleSubmit}>
         <div>
           <h2>Create an account</h2>
           <input
@@ -43,8 +50,11 @@ const SignUpForm = ({ onSuccess, user }) => {
             onChange={event => setPassword(event.target.value)}
           />
         </div>
-        <input type='submit' value='Submit' />
-      </form>
+        <br />
+        <Button type='submit'>Submit</Button>
+        <br />
+      </Form>
+      <br />
       Already have an account? Please <Link to='/signin'>sign in</Link> instead.
     </div>
   );

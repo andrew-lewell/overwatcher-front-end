@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Loader, Dimmer } from "semantic-ui-react";
 import GameCard from "../components/GameCard";
 import NewGameForm from "../components/NewGameForm";
 import "./GamesContainer.css";
@@ -54,19 +55,31 @@ const GamesContainer = ({
             setDisplayNewGameForm={setDisplayNewGameForm}
           />
         ) : null}
-        <button onClick={() => setDisplayNewGameForm(!displayNewGameForm)}>
+        <br />
+        <Button onClick={() => setDisplayNewGameForm(!displayNewGameForm)}>
           {displayNewGameForm ? "Hide Form" : "Add New Record"}
-        </button>
+        </Button>{" "}
+        <br />
       </div>
-      {currentPageGames.map((game, index) => (
-        <GameCard
-          gameData={game}
-          key={index}
-          handleDelete={handleDelete}
-          handleUpdate={handleUpdate}
-        />
-      ))}
-      <ul className='pagination'>{renderPageNumbers}</ul>
+      {gamesData.length >= 1 ? null : (
+        <div>
+          <Dimmer active inverted>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
+        </div>
+      )}
+      <div>
+        <br />
+        {currentPageGames.map((game, index) => (
+          <GameCard
+            gameData={game}
+            key={index}
+            handleDelete={handleDelete}
+            handleUpdate={handleUpdate}
+          />
+        ))}
+        <ul className='pagination'>{renderPageNumbers}</ul>
+      </div>
     </div>
   );
 };

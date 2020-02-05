@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import API from "../adapters/API";
 import { Link } from "react-router-dom";
-// import { Button, Form } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 
 const SignInForm = ({ onSuccess, user }) => {
   const [email, setEmail] = useState("");
@@ -18,11 +18,16 @@ const SignInForm = ({ onSuccess, user }) => {
       });
   };
 
+  const formStyle = {
+    margin: "0 auto",
+    width: "200px"
+  };
+
   return (
     <div>
       <h2>Sign in</h2>
       {errors && <div style={{ color: "red" }}>{JSON.stringify(errors)}</div>}
-      <form onSubmit={handleSubmit}>
+      <Form style={formStyle} onSubmit={handleSubmit}>
         <div>
           <input
             type='text'
@@ -41,11 +46,12 @@ const SignInForm = ({ onSuccess, user }) => {
             onChange={event => setPassword(event.target.value)}
           />
         </div>
-        <input type='submit' value='Submit' />
-      </form>
-      <p>
-        Don't have an account? Please <Link to='/signup'>sign up</Link> instead.
-      </p>
+        <br />
+        <Button type='submit'>Submit</Button>
+        <br />
+      </Form>
+      <br />
+      Don't have an account? Please <Link to='/signup'>sign up</Link> instead.
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "semantic-ui-react";
 
 import "./GameCard.css";
 import UpdateGameForm from "./UpdateGameForm";
@@ -62,7 +63,7 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
           {" - "}
           {gameData.result.toUpperCase()}
           {" - "}
-          {gameData.sr} SR
+          {gameData.sr} rating
         </h3>
         <img
           src={map_images[mapNameForImg(gameData.map.map)]}
@@ -76,10 +77,10 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
         />
       </div>
       <div>
-        <button onClick={() => setDisplayEditGameForm(!displayEditGameForm)}>
+        <Button onClick={() => setDisplayEditGameForm(!displayEditGameForm)}>
           Edit
-        </button>
-        <button onClick={() => handleDelete(gameData.id)}>Delete</button>
+        </Button>
+        <Button onClick={() => handleDelete(gameData.id)}>Delete</Button>
       </div>
       <div>
         {displayEditGameForm ? (

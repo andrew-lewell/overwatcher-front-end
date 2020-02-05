@@ -46,7 +46,7 @@ const App = () => {
   };
 
   const handleNewGamePost = newGame => {
-    const updatedGamesList = [...seasonData.games, newGame];
+    const updatedGamesList = [newGame, ...seasonData.games];
 
     setSeasonData(prevSeasonData => ({
       ...prevSeasonData,
@@ -61,7 +61,7 @@ const App = () => {
 
     setSeasonData(prevSeasonData => ({
       ...prevSeasonData,
-      games: [...updatedGamesList, updatedGame]
+      games: [updatedGame, ...updatedGamesList]
     }));
   };
 
