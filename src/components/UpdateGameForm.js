@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Form } from "semantic-ui-react";
 import API from "../adapters/API";
 
 const UpdateGameForm = ({
@@ -38,9 +39,18 @@ const UpdateGameForm = ({
     // console.log(gameData);
   };
 
+  const formStyle = {
+    margin: "0 auto",
+    width: "200px"
+  };
+
   return (
     <div>
-      <form onChange={handleFormChange} onSubmit={handleSubmit}>
+      <Form
+        style={formStyle}
+        onChange={handleFormChange}
+        onSubmit={handleSubmit}
+      >
         <label>Map: </label>
         <select name='map' defaultValue={formData.map}>
           <option value='2'>Busan</option>
@@ -55,7 +65,7 @@ const UpdateGameForm = ({
           <option value='19'>Temple of Anubis</option>
           <option value='20'>Volskaya Industries</option>
         </select>
-        <br />
+        {/* <br /> */}
         <label>Hero: </label>
         <select name='hero' defaultValue={formData.hero}>
           <option value='1'>Ana</option>
@@ -90,19 +100,20 @@ const UpdateGameForm = ({
           <option value='30'>Zarya</option>
           <option value='31'>Zenyatta</option>
         </select>
-        <br />
+        {/* <br /> */}
         <label>Result: </label>
         <select name='result' defaultValue={formData.result}>
           <option value='win'>Win</option>
           <option value='loss'>Loss</option>
           <option value='draw'>Draw</option>
         </select>
-        <br />
+        {/* <br /> */}
         <label>SR: </label>
         <input type='text' name='sr' defaultValue={formData.sr}></input>
         <br />
-        <input type='submit' value='Edit Record' />
-      </form>
+        <br />
+        <Button type='submit'>Edit Record</Button>
+      </Form>
     </div>
   );
 };
