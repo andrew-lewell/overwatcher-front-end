@@ -7,6 +7,9 @@ const VALIDATE_URL = `${API_ENDPOINT}/validate/`;
 const SEASONS_URL = `${API_ENDPOINT}/seasons/`;
 const GAMES_URL = `${API_ENDPOINT}/games/`;
 const HEROSTATS_URL = `${API_ENDPOINT}/herostats/`;
+const WINPERCBYROLE_URL = `${API_ENDPOINT}/winpercbyrole/`;
+const WINPERCBYMAP_URL = `${API_ENDPOINT}/winpercbymap/`;
+const WINPERCBYMAPTYPE_URL = `${API_ENDPOINT}/winpercbymaptype/`;
 
 const jsonify = resp => {
   if (resp.ok) {
@@ -141,6 +144,36 @@ const fetchHeroStats = () =>
     }
   }).then(jsonify);
 
+// fetch win perc by role
+const fetchWinPercByRole = () =>
+  fetch(WINPERCBYROLE_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
+    }
+  }).then(jsonify);
+
+// fetch win perc by map
+const fetchWinPercByMap = () =>
+  fetch(WINPERCBYMAP_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
+    }
+  }).then(jsonify);
+
+// fetch win perc by map type
+const fetchWinPercByMapType = () =>
+  fetch(WINPERCBYMAPTYPE_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
+    }
+  }).then(jsonify);
+
 export default {
   signin,
   signup,
@@ -152,7 +185,9 @@ export default {
   fetchGames,
   deleteGame,
   fetchHeroStats,
-
+  fetchWinPercByRole,
+  fetchWinPercByMap,
+  fetchWinPercByMapType,
   hasToken: () => !!localStorage.token,
   clearToken: () => localStorage.removeItem("token")
 };
