@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Loader, Dimmer } from "semantic-ui-react";
+import { Button, Loader, Dimmer, Card } from "semantic-ui-react";
 import GameCard from "../components/GameCard";
 import NewGameForm from "../components/NewGameForm";
 import "./GamesContainer.css";
@@ -13,7 +13,7 @@ const GamesContainer = ({
 }) => {
   const [displayNewGameForm, setDisplayNewGameForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage] = useState(10);
+  const [gamesPerPage] = useState(9);
 
   const indexOfLastGameCard = currentPage * gamesPerPage;
   const indexOfFirstGameCard = indexOfLastGameCard - gamesPerPage;
@@ -70,14 +70,16 @@ const GamesContainer = ({
       )}
       <div>
         <br />
-        {currentPageGames.map((game, index) => (
-          <GameCard
-            gameData={game}
-            key={index}
-            handleDelete={handleDelete}
-            handleUpdate={handleUpdate}
-          />
-        ))}
+        <Card.Group itemsPerRow={3} padded>
+          {currentPageGames.map((game, index) => (
+            <GameCard
+              gameData={game}
+              key={index}
+              handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
+            />
+          ))}
+        </Card.Group>
         <ul className='pagination'>{renderPageNumbers}</ul>
       </div>
     </div>
