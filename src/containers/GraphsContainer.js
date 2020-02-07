@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Progress } from "semantic-ui-react";
 
 import API from "../adapters/API";
 import Graph from "../components/Graph";
@@ -35,7 +35,7 @@ const GraphsContainer = () => {
   ];
 
   const dropdownStyle = {
-    width: "300px",
+    width: "250px",
     margin: "0 auto"
   };
 
@@ -112,11 +112,21 @@ const GraphsContainer = () => {
     scales: {
       xAxes: [
         {
+          position: "top",
           ticks: {
-            beginAtZero: true
+            beginAtZero: true,
+            max: 100
           }
         }
+      ],
+      yAxes: [
+        {
+          barPercentage: 0.9
+        }
       ]
+    },
+    animation: {
+      duration: 100000000
     }
   };
 

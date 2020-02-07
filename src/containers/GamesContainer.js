@@ -13,7 +13,7 @@ const GamesContainer = ({
 }) => {
   const [displayNewGameForm, setDisplayNewGameForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage] = useState(9);
+  const [gamesPerPage] = useState(15);
 
   const indexOfLastGameCard = currentPage * gamesPerPage;
   const indexOfFirstGameCard = indexOfLastGameCard - gamesPerPage;

@@ -35,9 +35,9 @@ const StatsTable = () => {
     "Losses",
     "Draws",
     "Total",
-    "W %",
-    "L %",
-    "D %"
+    "Win %",
+    "Loss %",
+    "Draw %"
   ];
 
   const rawTableHeaders = [
@@ -87,7 +87,7 @@ const StatsTable = () => {
   });
 
   return (
-    <Table celled sortable fixed>
+    <Table sortable>
       {renderTableHeaders}
       <Table.Body>{renderTableRows}</Table.Body>
     </Table>

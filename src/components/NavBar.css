@@ -1,10 +1,10 @@
 a {
   color: black;
-  transition: 500ms;
-  padding: 2px;
+  transition: 300ms;
+  /* padding: 2px; */
+  margin: 0px;
 }
 
 a.active {
-  color: orange;
-  border-bottom: solid 1px orange;
+  background-color: rgba(245, 166, 21, 0.85);
 }

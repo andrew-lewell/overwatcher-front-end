@@ -84,7 +84,7 @@ const App = () => {
         {/* <Header /> */}
         <img src={logo} alt='Overwatcher logo' />
       </header>
-      {user ? <NavBar /> : null} <br />
+      {user ? <NavBar logout={logout} /> : null} <br />
       <Switch>
         <Route exact path='/signin'>
           {!user ? (
@@ -107,13 +107,7 @@ const App = () => {
         <Route exact path='/'>
           {user ? (
             <div>
-              Logged in as {user.username}
-              <Link to='' onClick={() => logout()}>
-                {" "}
-                log out
-              </Link>
-              <br />
-              <br />
+              {/* Welcome back, {user.username}! */}
               <GamesContainer
                 gamesData={seasonData.games}
                 handleDelete={handleGameDelete}
