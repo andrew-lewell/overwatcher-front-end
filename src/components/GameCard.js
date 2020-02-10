@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Image, Icon } from "semantic-ui-react";
+import { Button, Card, Image, Modal } from "semantic-ui-react";
 
 import "./GameCard.css";
 import UpdateGameForm from "./UpdateGameForm";
@@ -22,11 +22,13 @@ const map_images = importAll(
 
 const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
   const [displayEditGameForm, setDisplayEditGameForm] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const heroNameForImg = name => {
     return (
       name
         .replace(".", "")
+        .replace(": ", "-")
         .split(" ")
         .join("-")
         .toLowerCase() + ".png"
@@ -44,6 +46,14 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
     );
   };
 
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   const styleByResult = result => {
     if (result === "win") {
       return "green";
@@ -55,7 +65,9 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
   };
 
   const cardStyle = {
-    maxWidth: "400px"
+    maxWidth: "400px",
+    padding: "20px"
+    // margin: "auto"
   };
 
   return (
@@ -73,11 +85,11 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
         {/* <Card.Meta></Card.Meta> */}
         <Card.Content>
           <br />
-          <span></span>
+          <big>
+            <b>{gameData.result.toUpperCase()}</b>
+          </big>
           <br />
-          <b>{gameData.result.toUpperCase()}</b>
           <br />
-          <span>{gameData.hero.name}</span>
           <Image
             src={hero_images[heroNameForImg(gameData.hero.name)]}
             size='small'
@@ -89,9 +101,11 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
             className='heroImg'
           />
           <br />
-          <span>{gameData.map.map}</span>
+          <span>Hero: {gameData.hero.name}</span>
           <br />
-          <span>{gameData.sr} rating</span>
+          <span>Map: {gameData.map.map}</span>
+          <br />
+          <span>Rating: {gameData.sr}</span>
         </Card.Content>
         <br />
         <Card.Content extra>
@@ -101,7 +115,7 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
             >
               Edit
             </Button>
-            <Button onClick={() => handleDelete(gameData.id)}>Delete</Button>
+            <Button onClick={() => showModal()}>Delete</Button>
             {displayEditGameForm ? (
               <UpdateGameForm
                 gameData={gameData}
@@ -109,6 +123,27 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
                 setDisplayEditGameForm={setDisplayEditGameForm}
               />
             ) : null}
+            <Modal size='mini' open={open} onClose={() => closeModal()}>
+              <Modal.Header>Delete This Record</Modal.Header>
+              <Modal.Content>
+                <p>Are you sure you want to delete this record?</p>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button negative onClick={() => closeModal()}>
+                  No
+                </Button>
+                <Button
+                  positive
+                  icon='checkmark'
+                  labelPosition='right'
+                  content='Yes'
+                  onClick={() => {
+                    handleDelete(gameData.id);
+                    closeModal();
+                  }}
+                />
+              </Modal.Actions>
+            </Modal>
           </div>
         </Card.Content>
       </Card.Content>

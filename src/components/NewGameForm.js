@@ -4,17 +4,20 @@ import { Form, Button } from "semantic-ui-react";
 import API from "../adapters/API";
 
 const NewGameForm = ({
-  activeSeason,
+  activeSeasonId,
   handleNewGamePost,
   setDisplayNewGameForm
 }) => {
   const [formData, setFormData] = useState({
-    season: activeSeason,
+    season: activeSeasonId,
     map: 2,
     hero: 1,
     result: "win",
     sr: null
   });
+
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleFormChange = event => {
     setFormData({
@@ -23,17 +26,37 @@ const NewGameForm = ({
     });
   };
 
+  const resetErrors = () => {
+    setIsError(false);
+    setErrorMessage("");
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
-    API.postGame(
-      formData.season,
-      formData.map,
-      formData.hero,
-      formData.result,
-      formData.sr
-    ).then(gameResp => handleNewGamePost(gameResp));
+    resetErrors();
 
-    setDisplayNewGameForm(false);
+    if (formData.sr === "" || formData.sr === null) {
+      setIsError(true);
+      setErrorMessage("Error: Please enter an SR rating value.");
+    } else if (formData.sr < 0 || formData.sr > 4500) {
+      setIsError(true);
+      setErrorMessage(
+        "Error: Please enter a positive SR rating value between 0 and 4500."
+      );
+    } else if (isNaN(formData.sr)) {
+      setIsError(true);
+      setErrorMessage("Error: Please enter a numeric SR rating value.");
+    } else {
+      API.postGame(
+        formData.season,
+        formData.map,
+        formData.hero,
+        formData.result,
+        formData.sr
+      ).then(gameResp => handleNewGamePost(gameResp));
+
+      setDisplayNewGameForm(false);
+    }
   };
 
   const formStyle = {
@@ -43,6 +66,8 @@ const NewGameForm = ({
 
   return (
     <div>
+      <span className='errorHandling'>{isError ? errorMessage : null}</span>
+      <br />
       <Form
         style={formStyle}
         onChange={handleFormChange}

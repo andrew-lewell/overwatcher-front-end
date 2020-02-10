@@ -4,14 +4,20 @@ import { Link } from "react-router-dom";
 
 import API from "../adapters/API";
 
-const SignUpForm = ({ onSuccess, user }) => {
+const SignUpForm = ({ onSuccess, user, activeSeason, setActiveSeasonId }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = event => {
     event.preventDefault();
-    API.signup({ username, email, password }).then(user => onSuccess(user));
+    API.signup({ username, email, password }).then(user => {
+      API.postSeason(activeSeason).then(season => {
+        debugger;
+        setActiveSeasonId(season.id);
+      });
+      onSuccess(user);
+    });
   };
 
   const formStyle = {

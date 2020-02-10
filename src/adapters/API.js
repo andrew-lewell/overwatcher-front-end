@@ -68,7 +68,17 @@ const postSeason = season =>
       Accept: "application/json",
       Authorisation: localStorage.token
     },
-    body: JSON.stringify({ season })
+    body: JSON.stringify({ season: season })
+  }).then(jsonify);
+
+const getSeasonId = () =>
+  fetch(SEASONS_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorisation: localStorage.token
+    }
   }).then(jsonify);
 
 const postGame = (seasonId, mapId, heroId, result, sr) =>
@@ -179,6 +189,7 @@ export default {
   signup,
   validate,
   postSeason,
+  getSeasonId,
   postGame,
   patchGame,
   fetchSeason,
