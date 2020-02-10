@@ -60,16 +60,16 @@ const validate = () =>
     .then(jsonify)
     .then(handleUserResponse);
 
-// const postSeason = season =>
-//   fetch(SEASONS_URL, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//       Authorisation: localStorage.token
-//     },
-//     body: JSON.stringify({ season })
-//   }).then(jsonify);
+const postSeason = season =>
+  fetch(SEASONS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorisation: localStorage.token
+    },
+    body: JSON.stringify({ season })
+  }).then(jsonify);
 
 const postGame = (seasonId, mapId, heroId, result, sr) =>
   fetch(GAMES_URL, {
@@ -178,7 +178,7 @@ export default {
   signin,
   signup,
   validate,
-  // postSeason,
+  postSeason,
   postGame,
   patchGame,
   fetchSeason,

@@ -9,7 +9,8 @@ const GamesContainer = ({
   handleDelete,
   activeSeason,
   handleNewGamePost,
-  handleUpdate
+  handleUpdate,
+  isLoading
 }) => {
   const [displayNewGameForm, setDisplayNewGameForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,7 +62,7 @@ const GamesContainer = ({
         </Button>{" "}
         <br />
       </div>
-      {gamesData.length >= 1 ? null : (
+      {!isLoading ? null : (
         <div>
           <Dimmer active inverted>
             <Loader inverted>Loading</Loader>
