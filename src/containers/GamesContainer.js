@@ -7,7 +7,7 @@ import "./GamesContainer.css";
 const GamesContainer = ({
   gamesData,
   handleDelete,
-  activeSeason,
+  activeSeasonId,
   handleNewGamePost,
   handleUpdate,
   isLoading
@@ -51,7 +51,7 @@ const GamesContainer = ({
       <div>
         {displayNewGameForm ? (
           <NewGameForm
-            activeSeason={activeSeason}
+            activeSeasonId={activeSeasonId}
             handleNewGamePost={handleNewGamePost}
             setDisplayNewGameForm={setDisplayNewGameForm}
           />
@@ -71,7 +71,7 @@ const GamesContainer = ({
       )}
       <div>
         <br />
-        <Card.Group itemsPerRow={3} padded>
+        <Card.Group centered itemsPerRow={3}>
           {currentPageGames.map((game, index) => (
             <GameCard
               gameData={game}

@@ -5,18 +5,26 @@ import API from "../adapters/API";
 import "./GameForm.css";
 
 const UpdateGameForm = ({
-  activeSeason,
+  // activeSeason,
   handleUpdate,
   gameData,
   setDisplayEditGameForm
 }) => {
   const [formData, setFormData] = useState({
-    season: activeSeason,
+    // season: activeSeason,
     map: gameData.map.id,
     hero: gameData.hero.id,
     result: gameData.result,
     sr: gameData.sr
   });
+
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const resetErrors = () => {
+    setIsError(false);
+    setErrorMessage("");
+  };
 
   const handleFormChange = event => {
     setFormData({
@@ -27,18 +35,33 @@ const UpdateGameForm = ({
 
   const handleSubmit = event => {
     event.preventDefault();
-    API.patchGame(
-      gameData.id,
-      formData.season,
-      formData.map,
-      formData.hero,
-      formData.result,
-      formData.sr
-    )
-      .then(gameResp => handleUpdate(gameResp))
-      .then(setDisplayEditGameForm(false));
-    // ).then(console.log);
-    // console.log(gameData);
+    resetErrors();
+
+    if (formData.sr === "" || formData.sr === null) {
+      setIsError(true);
+      setErrorMessage("Error: Please enter an SR rating value.");
+    } else if (formData.sr < 0 || formData.sr > 4500) {
+      setIsError(true);
+      setErrorMessage(
+        "Error: Please enter a positive SR rating value between 0 and 4500."
+      );
+    } else if (isNaN(formData.sr)) {
+      setIsError(true);
+      setErrorMessage("Error: Please enter a numeric SR rating value.");
+    } else {
+      API.patchGame(
+        gameData.id,
+        formData.season,
+        formData.map,
+        formData.hero,
+        formData.result,
+        formData.sr
+      )
+        .then(gameResp => handleUpdate(gameResp))
+        .then(setDisplayEditGameForm(false));
+      // ).then(console.log);
+      // console.log(gameData);
+    }
   };
 
   const formStyle = {
@@ -125,6 +148,7 @@ const UpdateGameForm = ({
             defaultValue={formData.sr}
           ></input>
         </Form.Field>
+        <span className='errorHandling'>{isError ? errorMessage : null}</span>
         <br />
         <Button type='submit'>Edit Record</Button>
       </Form>

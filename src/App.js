@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, Redirect, Link } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { Message } from "semantic-ui-react";
 
 import "./css/App.css";
 import API from "./adapters/API";
@@ -14,32 +15,48 @@ import GraphsContainer from "./containers/GraphsContainer";
 const App = () => {
   const [user, setUser] = useState(null);
   const [validatedUser, setValidatedUser] = useState(false);
-  const [activeSeason] = useState(1);
+  const [activeSeason] = useState(20);
+  const [activeSeasonId, setActiveSeasonId] = useState(null);
   const [seasonData, setSeasonData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {
     if (API.hasToken()) {
-      API.validate()
-        .then(handleUser)
-        .then(() => setValidatedUser(true));
+      API.validate().then(handleUser);
     } else {
       setValidatedUser(false);
     }
+  }, []);
+
+  useEffect(() => {
+    API.getSeasonId().then(seasons => {
+      console.log("seasons fetch resp", seasons);
+      setActiveSeasonId(seasons[0].id);
+    });
   }, [validatedUser]);
 
   useEffect(() => {
-    handleSeasonFetch(activeSeason);
-  }, []);
+    activeSeasonId && handleSeasonFetch(activeSeasonId);
+  }, [activeSeasonId]);
 
-  const logout = () => {
+  const clearState = () => {
     setUser(null);
     setValidatedUser(false);
+    setSeasonData({});
+    setActiveSeasonId(null);
+    setIsLoading(true);
+  };
+
+  const logout = () => {
+    clearState();
     API.clearToken();
+    // <Redirect to='/signup' />;
   };
 
   const handleUser = user => {
     setUser(user);
+    setValidatedUser(true);
   };
 
   const handleSeasonFetch = seasonId => {
@@ -82,6 +99,10 @@ const App = () => {
     );
   };
 
+  const handleDismiss = () => {
+    setShowMessage(false);
+  };
+
   return (
     <div className='App'>
       <header className='App-header'>
@@ -102,7 +123,12 @@ const App = () => {
         <Route exact path='/signup'>
           {!user ? (
             <div>
-              <SignUpContainer onSuccess={handleUser} user={user} />
+              <SignUpContainer
+                onSuccess={handleUser}
+                user={user}
+                activeSeason={activeSeason}
+                setActiveSeasonId={setActiveSeasonId}
+              />
             </div>
           ) : (
             <Redirect to='/' />
@@ -111,11 +137,21 @@ const App = () => {
         <Route exact path='/'>
           {user ? (
             <div>
-              {/* Welcome back, {user.username}! */}
+              {showMessage ? (
+                <Message onDismiss={() => handleDismiss()}>
+                  Welcome back to Overwatcher, {user.username}! This tool helps
+                  you track your performance in Overwatch. <br />
+                  {/* On this Home page, you can add/edit/delete game records.{" "}
+                  <br />
+                  On the Stats page, you can see your raw aggregated data.{" "}
+                  <br />
+                  On the Graphs page, you can visualize your performance data. */}
+                </Message>
+              ) : null}
               <GamesContainer
                 gamesData={seasonData.games}
                 handleDelete={handleGameDelete}
-                activeSeason={activeSeason}
+                activeSeasonId={activeSeasonId}
                 handleNewGamePost={handleNewGamePost}
                 handleUpdate={handleUpdateGamePost}
                 isLoading={isLoading}
