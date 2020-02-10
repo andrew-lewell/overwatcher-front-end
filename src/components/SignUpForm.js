@@ -34,7 +34,7 @@ const SignUpForm = ({ onSuccess, user }) => {
         </div>
         <div>
           <input
-            type='text'
+            type='email'
             name='email'
             placeholder='Email...'
             value={email}

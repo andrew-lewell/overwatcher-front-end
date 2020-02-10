@@ -16,6 +16,7 @@ const App = () => {
   const [validatedUser, setValidatedUser] = useState(false);
   const [activeSeason] = useState(1);
   const [seasonData, setSeasonData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (API.hasToken()) {
@@ -29,7 +30,7 @@ const App = () => {
 
   useEffect(() => {
     handleSeasonFetch(activeSeason);
-  }, [activeSeason]);
+  }, []);
 
   const logout = () => {
     setUser(null);
@@ -42,7 +43,10 @@ const App = () => {
   };
 
   const handleSeasonFetch = seasonId => {
-    API.fetchSeason(seasonId).then(seasonData => setSeasonData(seasonData));
+    API.fetchSeason(seasonId).then(seasonData => {
+      setSeasonData(seasonData);
+      setIsLoading(false);
+    });
   };
 
   const handleNewGamePost = newGame => {
@@ -114,6 +118,7 @@ const App = () => {
                 activeSeason={activeSeason}
                 handleNewGamePost={handleNewGamePost}
                 handleUpdate={handleUpdateGamePost}
+                isLoading={isLoading}
               />
             </div>
           ) : (
