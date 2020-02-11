@@ -101,11 +101,17 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
             className='heroImg'
           />
           <br />
-          <span>Hero: {gameData.hero.name}</span>
+          <span>
+            Hero: <b>{gameData.hero.name}</b>
+          </span>
           <br />
-          <span>Map: {gameData.map.map}</span>
+          <span>
+            Map: <b>{gameData.map.map}</b>
+          </span>
           <br />
-          <span>Rating: {gameData.sr}</span>
+          <span>
+            Rating: <b>{gameData.sr}</b>
+          </span>
         </Card.Content>
         <br />
         <Card.Content extra>

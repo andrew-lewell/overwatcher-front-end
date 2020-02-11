@@ -7,15 +7,18 @@ const SignInForm = ({ onSuccess, user }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState([]);
 
   const handleSubmit = event => {
     event.preventDefault();
     API.signin({ email, password })
-      .then(user => onSuccess(user))
       .catch(errorPromise => {
-        errorPromise.then(errorData => setErrors(errorData.errors));
-      });
+        errorPromise.then(errorData => {
+          setErrors(errorData);
+          console.log(errorData);
+        });
+      })
+      .then(user => onSuccess(user));
   };
 
   const formStyle = {
@@ -26,11 +29,11 @@ const SignInForm = ({ onSuccess, user }) => {
   return (
     <div>
       <h2>Sign in</h2>
-      {errors && <div style={{ color: "red" }}>{JSON.stringify(errors)}</div>}
+      {errors.error && <div style={{ color: "red" }}>{errors.error}</div>}
       <Form style={formStyle} onSubmit={handleSubmit}>
         <div>
           <input
-            type='text'
+            type='email'
             name='email'
             placeholder='Email...'
             value={email}
