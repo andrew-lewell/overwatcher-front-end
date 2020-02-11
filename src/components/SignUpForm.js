@@ -9,15 +9,23 @@ const SignUpForm = ({ onSuccess, user, activeSeason, setActiveSeasonId }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errors, setErrors] = useState([]);
+
   const handleSubmit = event => {
     event.preventDefault();
-    API.signup({ username, email, password }).then(user => {
-      API.postSeason(activeSeason).then(season => {
-        debugger;
-        setActiveSeasonId(season.id);
+    API.signup({ username, email, password })
+      .catch(errorPromise => {
+        errorPromise.then(errorData => {
+          setErrors(errorData);
+          console.log(errorData);
+        });
+      })
+      .then(user => {
+        API.postSeason(activeSeason).then(season => {
+          setActiveSeasonId(season.id);
+        });
+        onSuccess(user);
       });
-      onSuccess(user);
-    });
   };
 
   const formStyle = {
@@ -30,6 +38,9 @@ const SignUpForm = ({ onSuccess, user, activeSeason, setActiveSeasonId }) => {
       <Form style={formStyle} onSubmit={handleSubmit}>
         <div>
           <h2>Create an account</h2>
+          {errors.error && (
+            <div style={{ color: "red" }}>{errors.error.join(", ")}</div>
+          )}
           <input
             type='text'
             name='username'

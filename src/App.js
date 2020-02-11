@@ -162,10 +162,10 @@ const App = () => {
           )}
         </Route>
         <Route exact path='/stats'>
-          <StatsContainer />
+          {user ? <StatsContainer /> : <Redirect to='/signin' />}
         </Route>
         <Route exact path='/graphs'>
-          <GraphsContainer />
+          {user ? <GraphsContainer /> : <Redirect to='/signin' />}
         </Route>
       </Switch>
     </div>

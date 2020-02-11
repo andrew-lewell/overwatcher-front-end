@@ -10,6 +10,7 @@ const HEROSTATS_URL = `${API_ENDPOINT}/herostats/`;
 const WINPERCBYROLE_URL = `${API_ENDPOINT}/winpercbyrole/`;
 const WINPERCBYMAP_URL = `${API_ENDPOINT}/winpercbymap/`;
 const WINPERCBYMAPTYPE_URL = `${API_ENDPOINT}/winpercbymaptype/`;
+const WINPERCFORMAPID_URL = `${API_ENDPOINT}/herostatsformapid/`;
 
 const jsonify = resp => {
   if (resp.ok) {
@@ -184,6 +185,16 @@ const fetchWinPercByMapType = () =>
     }
   }).then(jsonify);
 
+// fetch win per by map per hero
+const fetchWinPercForMapId = id =>
+  fetch(WINPERCFORMAPID_URL + id, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorisation: localStorage.token
+    }
+  }).then(jsonify);
+
 export default {
   signin,
   signup,
@@ -199,6 +210,7 @@ export default {
   fetchWinPercByRole,
   fetchWinPercByMap,
   fetchWinPercByMapType,
+  fetchWinPercForMapId,
   hasToken: () => !!localStorage.token,
   clearToken: () => localStorage.removeItem("token")
 };
