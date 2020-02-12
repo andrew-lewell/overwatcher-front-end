@@ -374,6 +374,8 @@ const GraphsContainer = () => {
         }
       ]
     }
+    // maintainAspectRatio: false,
+    // responsive: false
   };
 
   useEffect(() => {

@@ -55,8 +55,12 @@ const App = () => {
   };
 
   const handleUser = user => {
-    setUser(user.id);
-    setValidatedUser(true);
+    if (user === undefined) {
+      return;
+    } else {
+      setUser(user.username);
+      setValidatedUser(true);
+    }
   };
 
   const handleSeasonFetch = seasonId => {
@@ -140,8 +144,8 @@ const App = () => {
             <div>
               {showMessage ? (
                 <Message onDismiss={() => handleDismiss()}>
-                  Welcome back to Overwatcher, {user.username}! This tool helps
-                  you track your performance in Overwatch. <br />
+                  Welcome back to Overwatcher, {user}! This tool helps you track
+                  your performance in Overwatch. <br />
                   On this page, you can add/edit/delete game records.
                 </Message>
               ) : null}
