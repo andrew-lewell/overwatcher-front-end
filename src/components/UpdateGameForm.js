@@ -69,6 +69,11 @@ const UpdateGameForm = ({
     } else if (isNaN(formData.sr)) {
       setIsError(true);
       setErrorMessage("Error: Please enter a numeric SR rating value.");
+    } else if (/^\s+$/.test(formData.sr)) {
+      setIsError(true);
+      setErrorMessage(
+        "Error: Please enter a numeric SR rating value with no white spaces."
+      );
     } else {
       API.patchGame(
         gameData.id,

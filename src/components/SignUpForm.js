@@ -10,22 +10,35 @@ const SignUpForm = ({ onSuccess, user, activeSeason, setActiveSeasonId }) => {
   const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState([]);
+  const [usernameError, setUsernameError] = useState("");
+
+  const resetErrors = () => {
+    setErrors([]);
+    setUsernameError("");
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
-    API.signup({ username, email, password })
-      .catch(errorPromise => {
-        errorPromise.then(errorData => {
-          setErrors(errorData);
-          console.log(errorData);
+    resetErrors();
+
+    if (/^\s+$/.test(username)) {
+      setUsernameError("Error: please enter a valid username.");
+      console.log(usernameError);
+    } else {
+      API.signup({ username, email, password })
+        .catch(errorPromise => {
+          errorPromise.then(errorData => {
+            setErrors(errorData);
+            console.log(errorData);
+          });
+        })
+        .then(user => {
+          API.postSeason(activeSeason).then(season => {
+            setActiveSeasonId(season.id);
+          });
+          onSuccess(user);
         });
-      })
-      .then(user => {
-        API.postSeason(activeSeason).then(season => {
-          setActiveSeasonId(season.id);
-        });
-        onSuccess(user);
-      });
+    }
   };
 
   const formStyle = {
@@ -41,6 +54,7 @@ const SignUpForm = ({ onSuccess, user, activeSeason, setActiveSeasonId }) => {
           {errors.error && (
             <div style={{ color: "red" }}>{errors.error.join(", ")}</div>
           )}
+          {usernameError && <div style={{ color: "red" }}>{usernameError}</div>}
           <input
             type='text'
             name='username'
