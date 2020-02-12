@@ -141,11 +141,7 @@ const App = () => {
                 <Message onDismiss={() => handleDismiss()}>
                   Welcome back to Overwatcher, {user.username}! This tool helps
                   you track your performance in Overwatch. <br />
-                  {/* On this Home page, you can add/edit/delete game records.{" "}
-                  <br />
-                  On the Stats page, you can see your raw aggregated data.{" "}
-                  <br />
-                  On the Graphs page, you can visualize your performance data. */}
+                  On this page, you can add/edit/delete game records.
                 </Message>
               ) : null}
               <GamesContainer
@@ -164,7 +160,7 @@ const App = () => {
         <Route exact path='/stats'>
           {user ? <StatsContainer /> : <Redirect to='/signin' />}
         </Route>
-        <Route exact path='/graphs'>
+        <Route exact path='/charts'>
           {user ? <GraphsContainer /> : <Redirect to='/signin' />}
         </Route>
       </Switch>

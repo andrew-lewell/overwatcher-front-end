@@ -58,7 +58,7 @@ const GamesContainer = ({
         ) : null}
         <br />
         <Button onClick={() => setDisplayNewGameForm(!displayNewGameForm)}>
-          {displayNewGameForm ? "Hide Form" : "Add New Record"}
+          {displayNewGameForm ? "Hide Form" : "Add New Game Record"}
         </Button>{" "}
         <br />
       </div>

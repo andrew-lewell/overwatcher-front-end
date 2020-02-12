@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Message } from "semantic-ui-react";
 
 import API from "../adapters/API";
 import Graph from "../components/Graph";
@@ -21,6 +21,7 @@ const GraphsContainer = () => {
   const [winPercRialto, setWinPercRialto] = useState([]);
   const [winPercTemple, setWinPercTemple] = useState([]);
   const [winPercVolskaya, setWinPercVolskaya] = useState([]);
+  const [showMessage, setShowMessage] = useState(true);
 
   const dropDownOptions = [
     {
@@ -383,8 +384,17 @@ const GraphsContainer = () => {
     setGraphType(data.value);
   };
 
+  const handleDismiss = () => {
+    setShowMessage(false);
+  };
+
   return (
     <div>
+      {showMessage ? (
+        <Message onDismiss={() => handleDismiss()}>
+          Please select an option from the dropdown to view a chart.
+        </Message>
+      ) : null}
       <Dropdown
         placeholder='Select graph'
         fluid

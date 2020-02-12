@@ -29,11 +29,11 @@ const NavBar = ({ logout }) => {
           onClick={event => handleItemClick(event)}
         />
       </NavLink>
-      <NavLink exact to='/graphs'>
+      <NavLink exact to='/charts'>
         <Menu.Item
           header
-          name='Graphs'
-          active={activeItem === "Graphs"}
+          name='Charts'
+          active={activeItem === "Charts"}
           onClick={event => handleItemClick(event)}
         />
       </NavLink>
