@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Select, Input } from "semantic-ui-react";
 
 import API from "../adapters/API";
 import "./GameForm.css";
@@ -30,6 +30,34 @@ const UpdateGameForm = ({
     setFormData({
       ...formData,
       [event.target.name]: event.target.value
+    });
+  };
+
+  const handleMapChange = (event, data) => {
+    setFormData({
+      ...formData,
+      [data.name]: data.value
+    });
+  };
+
+  const handleHeroChange = (event, data) => {
+    setFormData({
+      ...formData,
+      [data.name]: data.value
+    });
+  };
+
+  const handleResultChange = (event, data) => {
+    setFormData({
+      ...formData,
+      [data.name]: data.value
+    });
+  };
+
+  const handleSrChange = (event, data) => {
+    setFormData({
+      ...formData,
+      [data.name]: data.value
     });
   };
 
@@ -69,15 +97,84 @@ const UpdateGameForm = ({
     width: "200px"
   };
 
+  const mapOptions = [
+    { value: "2", text: "Busan" },
+    { value: "3", text: "Dorado" },
+    { value: "4", text: "Eichenwalde" },
+    { value: "5", text: "Hanamura" },
+    { value: "9", text: "Ilios" },
+    { value: "11", text: "King's Row" },
+    { value: "14", text: "Numbani" },
+    { value: "15", text: "Oasis" },
+    { value: "17", text: "Rialto" },
+    { value: "19", text: "Temple of Anubis" },
+    { value: "20", text: "Volskaya Industries" }
+  ];
+
+  // const mapSelectDefaultValue = () => {
+  //   let selectedOption = mapOptions.filter(option => {
+  //     option.value === formData.map;
+  //   });
+  //   debugger;
+  //   return selectedOption.text;
+  // };
+
+  const heroOptions = [
+    { value: "1", text: "Ana" },
+    { value: "2", text: "Ashe" },
+    { value: "3", text: "Baptiste" },
+    { value: "4", text: "Bastion" },
+    { value: "5", text: "Brigitte" },
+    { value: "6", text: "D.Va" },
+    { value: "7", text: "Doomfist" },
+    { value: "8", text: "Genji" },
+    { value: "9", text: "Hanzo" },
+    { value: "10", text: "Junkrat" },
+    { value: "11", text: "Lucio" },
+    { value: "12", text: "Mccree" },
+    { value: "13", text: "Mei" },
+    { value: "14", text: "Mercy" },
+    { value: "15", text: "Moira" },
+    { value: "16", text: "Orisa" },
+    { value: "17", text: "Pharah" },
+    { value: "18", text: "Reaper" },
+    { value: "19", text: "Reinhardt" },
+    { value: "20", text: "Roadhog" },
+    { value: "21", text: "Sigma" },
+    { value: "22", text: "Soldier: 76" },
+    { value: "23", text: "Sombra" },
+    { value: "24", text: "Symmetra" },
+    { value: "25", text: "Torbjörn" },
+    { value: "26", text: "Tracer" },
+    { value: "27", text: "Widowmaker" },
+    { value: "28", text: "Winston" },
+    { value: "29", text: "Wrecking Ball" },
+    { value: "30", text: "Zarya" },
+    { value: "31", text: "Zenyatta" }
+  ];
+
+  const resultOptions = [
+    { value: "win", text: "Win" },
+    { value: "loss", text: "Loss" },
+    { value: "draw", text: "Draw" }
+  ];
+
   return (
     <div>
+      <br />
       <Form
         style={formStyle}
-        onChange={handleFormChange}
+        // onChange={handleFormChange}
         onSubmit={handleSubmit}
       >
         <Form.Field>
-          <label for='map'>Map: </label>
+          <Select
+            placeholder={gameData.map.map}
+            options={mapOptions}
+            name='map'
+            onChange={handleMapChange}
+          />
+          {/* <label for='map'>Map: </label>
           <select name='map' defaultValue={formData.map}>
             <option value='2'>Busan</option>
             <option value='3'>Dorado</option>
@@ -90,11 +187,17 @@ const UpdateGameForm = ({
             <option value='17'>Rialto</option>
             <option value='19'>Temple of Anubis</option>
             <option value='20'>Volskaya Industries</option>
-          </select>
+          </select> */}
         </Form.Field>
         {/* <br /> */}
         <Form.Field>
-          <label>Hero: </label>
+          <Select
+            placeholder={gameData.hero.name}
+            options={heroOptions}
+            name='hero'
+            onChange={handleHeroChange}
+          />
+          {/* <label>Hero: </label>
           <select name='hero' defaultValue={formData.hero}>
             <option value='1'>Ana</option>
             <option value='2'>Ashe</option>
@@ -127,26 +230,34 @@ const UpdateGameForm = ({
             <option value='29'>Wrecking Ball</option>
             <option value='30'>Zarya</option>
             <option value='31'>Zenyatta</option>
-          </select>
+          </select> */}
         </Form.Field>
-        {/* <br /> */}
         <Form.Field>
-          <label>Result: </label>
+          <Select
+            placeholder={gameData.result}
+            options={resultOptions}
+            onChange={handleResultChange}
+          />
+          {/* <label>Result: </label>
           <select name='result' defaultValue={formData.result}>
             <option value='win'>Win</option>
             <option value='loss'>Loss</option>
             <option value='draw'>Draw</option>
-          </select>
+          </select> */}
         </Form.Field>
-        {/* <br /> */}
         <Form.Field>
-          <label>SR: </label>
+          <Input
+            placeholder={gameData.sr}
+            name='sr'
+            onChange={handleSrChange}
+          />
+          {/* <label>SR: </label>
           <input
             label='sr'
             type='text'
             name='sr'
             defaultValue={formData.sr}
-          ></input>
+          ></input> */}
         </Form.Field>
         <span className='errorHandling'>{isError ? errorMessage : null}</span>
         <br />
