@@ -55,12 +55,13 @@ const App = () => {
   };
 
   const handleUser = user => {
-    setUser(user);
+    setUser(user.id);
     setValidatedUser(true);
   };
 
   const handleSeasonFetch = seasonId => {
     API.fetchSeason(seasonId).then(seasonData => {
+      delete seasonData.user;
       setSeasonData(seasonData);
       setIsLoading(false);
     });
