@@ -1,6 +1,8 @@
 // import React from "react";
 
-const API_ENDPOINT = "http://localhost:3000";
+const PRODUCTION = "https://overwatch-er.herokuapp.com";
+const DEVELOPMENT = "http://localhost:3000";
+const API_ENDPOINT = PRODUCTION;
 const SIGNIN_URL = `${API_ENDPOINT}/signin/`;
 const SIGNUP_URL = `${API_ENDPOINT}/signup/`;
 const VALIDATE_URL = `${API_ENDPOINT}/validate/`;
