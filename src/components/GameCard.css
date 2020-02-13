@@ -50,3 +50,32 @@
 .cardStats {
   display: inline;
 }
+
+.winHeadline {
+  color: rgb(14, 124, 14);
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.lossHeadline {
+  color: rgb(182, 13, 13);
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.drawHeadline {
+  color: rgb(116, 114, 114);
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.grow {
+  transition: all 0.3s ease-in-out;
+}
+
+.grow:hover {
+  transform: scale(1.05);
+}

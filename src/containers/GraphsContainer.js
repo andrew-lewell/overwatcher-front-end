@@ -373,8 +373,8 @@ const GraphsContainer = () => {
           }
         }
       ]
-    }
-    // maintainAspectRatio: false,
+    },
+    maintainAspectRatio: false
     // responsive: false
   };
 

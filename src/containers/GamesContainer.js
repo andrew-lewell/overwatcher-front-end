@@ -71,7 +71,7 @@ const GamesContainer = ({
       )}
       <div>
         <br />
-        <Card.Group centered itemsPerRow={3}>
+        <Card.Group centered itemsPerRow={5}>
           {currentPageGames.map((game, index) => (
             <GameCard
               gameData={game}

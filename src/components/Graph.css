@@ -1,4 +1,8 @@
-/* .graphContainer {
+.graphContainer {
   position: relative;
-  height: 800px !important;
-} */
+  height: 700px !important;
+  padding-left: 70px;
+  padding-right: 70px;
+  padding-top: 10px;
+  /* margin: 50px; */
+}

@@ -170,6 +170,7 @@ const NewGameForm = ({
             placeholder='Select Result'
             options={resultOptions}
             onChange={handleResultChange}
+            name='result'
           />
         </Form.Field>
         <Form.Field>

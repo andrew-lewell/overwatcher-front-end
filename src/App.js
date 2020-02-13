@@ -14,7 +14,7 @@ import GraphsContainer from "./containers/GraphsContainer";
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [validatedUser, setValidatedUser] = useState(false);
+  // const [validatedUser, setValidatedUser] = useState(false);
   const [activeSeason] = useState(20);
   const [activeSeasonId, setActiveSeasonId] = useState(null);
   const [seasonData, setSeasonData] = useState({});
@@ -25,16 +25,16 @@ const App = () => {
     if (API.hasToken()) {
       API.validate().then(handleUser);
     } else {
-      setValidatedUser(false);
+      setUser(null);
     }
   }, []);
 
   useEffect(() => {
     API.getSeasonId().then(seasons => {
-      console.log("seasons fetch resp", seasons);
+      // console.log("seasons fetch resp", seasons);
       setActiveSeasonId(seasons[0].id);
     });
-  }, [validatedUser]);
+  }, [activeSeasonId]);
 
   useEffect(() => {
     activeSeasonId && handleSeasonFetch(activeSeasonId);
@@ -42,7 +42,7 @@ const App = () => {
 
   const clearState = () => {
     setUser(null);
-    setValidatedUser(false);
+    // setValidatedUser(false);
     setSeasonData({});
     setActiveSeasonId(null);
     setIsLoading(true);
@@ -59,7 +59,7 @@ const App = () => {
       return;
     } else {
       setUser(user.username);
-      setValidatedUser(true);
+      // setValidatedUser(true);
     }
   };
 
