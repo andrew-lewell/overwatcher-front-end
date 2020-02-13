@@ -29,7 +29,7 @@ const SignUpForm = ({ onSuccess, user, activeSeason, setActiveSeasonId }) => {
         .catch(errorPromise => {
           errorPromise.then(errorData => {
             setErrors(errorData);
-            console.log(errorData);
+            // console.log(errorData);
           });
         })
         .then(user => {

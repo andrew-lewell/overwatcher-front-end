@@ -25,7 +25,7 @@ const StatsTable = () => {
       }
 
       API.fetchWinPercByRole().then(stats => {
-        console.log(stats);
+        // console.log(stats);
         if (stats.length === 3) {
           setThreeRoles(true);
         }
@@ -40,7 +40,7 @@ const StatsTable = () => {
   useEffect(() => {
     if (threeRoles === true) {
       const tank = heroStats.find(hero => hero.role === "tank");
-      console.log(heroStats);
+      // console.log(heroStats);
       setStrongestTank(tank.name);
 
       const supp = heroStats.find(hero => hero.role === "support");
