@@ -56,11 +56,11 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
 
   const styleByResult = result => {
     if (result === "win") {
-      return "green";
+      return "winHeadline";
     } else if (result === "loss") {
-      return "red";
+      return "lossHeadline";
     } else {
-      return "black";
+      return "drawHeadline";
     }
   };
 
@@ -70,8 +70,22 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
     // margin: "auto"
   };
 
+  const resultNameChange = result => {
+    if (result === "win") {
+      return "Victory";
+    } else if (result === "loss") {
+      return "Defeat";
+    } else {
+      return "Draw";
+    }
+  };
+
   return (
-    <Card color={styleByResult(gameData.result)} style={cardStyle}>
+    <Card
+      // color={styleByResult(gameData.result)}
+      style={cardStyle}
+      className='grow'
+    >
       <Image
         src={map_images[mapNameForImg(gameData.map.map)]}
         wrapped
@@ -85,9 +99,10 @@ const GameCard = ({ gameData, handleDelete, handleUpdate }) => {
         {/* <Card.Meta></Card.Meta> */}
         <Card.Content>
           <br />
-          <big>
-            <b>{gameData.result.toUpperCase()}</b>
-          </big>
+          <br />
+          <span className={styleByResult(gameData.result)}>
+            {resultNameChange(gameData.result).toUpperCase()}
+          </span>
           <br />
           <br />
           <Image

@@ -169,9 +169,12 @@ const UpdateGameForm = ({
         </Form.Field>
         <Form.Field>
           <Select
-            placeholder={gameData.result}
+            placeholder={
+              gameData.result.charAt(0).toUpperCase() + gameData.result.slice(1)
+            }
             options={resultOptions}
             onChange={handleResultChange}
+            name='result'
           />
         </Form.Field>
         <Form.Field>

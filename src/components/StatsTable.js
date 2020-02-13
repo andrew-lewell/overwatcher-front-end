@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "semantic-ui-react";
+import { Table, Message } from "semantic-ui-react";
 import _ from "lodash";
 
 import API from "../adapters/API";
@@ -8,14 +8,52 @@ const StatsTable = () => {
   const [heroStats, setHeroStats] = useState([]);
   const [column, setColumn] = useState("name");
   const [direction, setDirection] = useState("ascending");
+  const [strongestHero, setStrongestHero] = useState(null);
+  const [strongestTank, setStrongestTank] = useState(null);
+  const [strongestSupport, setStrongestSupport] = useState(null);
+  const [strongestDamage, setStrongestDamage] = useState(null);
+  const [threeRoles, setThreeRoles] = useState(false);
+  const [showMessage, setShowMessage] = useState(true);
 
   const fetchStats = () => {
-    API.fetchHeroStats().then(stats => setHeroStats(stats));
+    API.fetchHeroStats().then(stats => {
+      setHeroStats(stats);
+      // console.log(stats[0].role_count);
+
+      if (stats.length > 0) {
+        setStrongestHero(stats[0].name);
+      }
+
+      API.fetchWinPercByRole().then(stats => {
+        console.log(stats);
+        if (stats.length === 3) {
+          setThreeRoles(true);
+        }
+      });
+    });
   };
 
   useEffect(() => {
     fetchStats();
   }, []);
+
+  useEffect(() => {
+    if (threeRoles === true) {
+      const tank = heroStats.find(hero => hero.role === "tank");
+      console.log(heroStats);
+      setStrongestTank(tank.name);
+
+      const supp = heroStats.find(hero => hero.role === "support");
+      if (supp !== undefined) {
+        setStrongestSupport(supp.name);
+      }
+
+      const dmg = heroStats.find(hero => hero.role === "damage");
+      if (dmg !== undefined) {
+        setStrongestDamage(dmg.name);
+      }
+    }
+  }, [heroStats, threeRoles]);
 
   const handleSort = clickedColumn => {
     if (column !== clickedColumn) {
@@ -26,6 +64,10 @@ const StatsTable = () => {
     }
     setHeroStats(heroStats.reverse());
     setDirection(direction === "ascending" ? "descending" : "ascending");
+  };
+
+  const handleDismiss = () => {
+    setShowMessage(false);
   };
 
   const tableHeaders = [
@@ -87,10 +129,26 @@ const StatsTable = () => {
   });
 
   return (
-    <Table sortable>
-      {renderTableHeaders}
-      <Table.Body>{renderTableRows}</Table.Body>
-    </Table>
+    <>
+      {showMessage ? (
+        <>
+          {heroStats.length > 3 ? (
+            <Message onDismiss={() => handleDismiss()}>
+              Based on your performance data, your overall strongest hero is{" "}
+              <b>{strongestHero}</b>. <br />
+            </Message>
+          ) : (
+            <Message>
+              Please play more games to see performance analysis!
+            </Message>
+          )}
+        </>
+      ) : null}
+      <Table sortable>
+        {renderTableHeaders}
+        <Table.Body>{renderTableRows}</Table.Body>
+      </Table>
+    </>
   );
 };
 
