@@ -30,15 +30,20 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    API.getSeasonId().then(seasons => {
-      // console.log("seasons fetch resp", seasons);
-      setActiveSeasonId(seasons[0].id);
-    });
+    if (activeSeasonId) {
+      console.log(activeSeasonId);
+      handleSeasonFetch(activeSeasonId);
+    } else {
+      API.getSeasonId().then(seasons => {
+        console.log(activeSeasonId);
+        setActiveSeasonId(seasons[0].id);
+      });
+    }
   }, [activeSeasonId]);
 
-  useEffect(() => {
-    activeSeasonId && handleSeasonFetch(activeSeasonId);
-  }, [activeSeasonId]);
+  // useEffect(() => {
+  //   activeSeasonId && handleSeasonFetch(activeSeasonId);
+  // }, []);
 
   const clearState = () => {
     setUser(null);
@@ -59,7 +64,6 @@ const App = () => {
       return;
     } else {
       setUser(user.username);
-      // setValidatedUser(true);
     }
   };
 
