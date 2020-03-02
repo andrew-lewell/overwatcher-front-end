@@ -14,7 +14,7 @@ const GamesContainer = ({
 }) => {
   const [displayNewGameForm, setDisplayNewGameForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage] = useState(15);
+  const [gamesPerPage] = useState(12);
 
   const indexOfLastGameCard = currentPage * gamesPerPage;
   const indexOfFirstGameCard = indexOfLastGameCard - gamesPerPage;
@@ -71,7 +71,7 @@ const GamesContainer = ({
       )}
       <div>
         <br />
-        <Card.Group centered itemsPerRow={5}>
+        <Card.Group centered itemsPerRow={3}>
           {currentPageGames.map((game, index) => (
             <GameCard
               gameData={game}
